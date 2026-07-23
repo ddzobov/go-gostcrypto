@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+### Changed
+
+### Fixed
+
+## [v0.1.0] - 2026-07-23
+
+First public release of go-gostcrypto: a pure-Go, BSD-2-Clause,
+zero-dependency clean-room implementation of the GOST cryptographic
+primitives and GOST-signed X.509, behind a stable `[]byte` facade plus
+directly importable primitive subpackages.
+
+### Added
+
 - Initial public release of `go-gostcrypto`: pure-Go, BSD-2-Clause,
   clean-room GOST cryptographic primitives with zero third-party dependencies.
 - Hashes: Streebog (GOST R 34.11-2012, 256/512-bit) and legacy GOST R 34.11-94.
