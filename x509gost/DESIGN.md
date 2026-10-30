@@ -49,7 +49,7 @@ values (`oids.go`):
 | Signature (`signwithdigest`) | `id-GostR3410-2001-GostR3411` (1.2.643.2.2.3), `id-tc26-signwithdigest-gost3410-12-256` (1.2.643.7.1.1.3.2), `id-tc26-signwithdigest-gost3410-12-512` (1.2.643.7.1.1.3.3) | RFC 4491 §2.1; RFC 9215 §2 |
 | Public key | `id-GostR3410-2001` (1.2.643.2.2.19), `id-tc26-gost3410-12-256` (1.2.643.7.1.1.1.1), `id-tc26-gost3410-12-512` (1.2.643.7.1.1.1.2) | RFC 4491 §2.1; RFC 9215 §4.1 |
 | Hash | `id-GostR3411-94` (1.2.643.2.2.9), `id-tc26-gost3411-12-256` (1.2.643.7.1.1.2.2), `id-tc26-gost3411-12-512` (1.2.643.7.1.1.2.3) | RFC 4357; RFC 9215 §3 |
-| Curve parameter set | CryptoPro-A/B/C (1.2.643.2.2.35.{1,2,3}); TC26 256-bit paramSet A/B/C/D (1.2.643.7.1.2.1.1.{1,2,3,4}); TC26 512-bit paramSet A/B/C (1.2.643.7.1.2.1.2.{1,2,3}) | RFC 4357; RFC 7091 |
+| Curve parameter set | CryptoPro-A/B/C (1.2.643.2.2.35.{1,2,3}); CryptoPro-XchA/B (1.2.643.2.2.36.{0,1}); TC26 256-bit paramSet A/B/C/D (1.2.643.7.1.2.1.1.{1,2,3,4}); TC26 512-bit paramSet A/B/C (1.2.643.7.1.2.1.2.{1,2,3}) | RFC 4357; RFC 7091 |
 
 `ParseCertificate` classifies the outer `SignatureAlgorithm` OID and the SPKI
 `AlgorithmIdentifier.Algorithm` OID independently. A GOST signature OID paired

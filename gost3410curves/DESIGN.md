@@ -10,7 +10,7 @@ plus a cofactor, that defines one named elliptic curve over a prime field
 curve; instead an X.509 certificate, a key, or a TLS handshake names a
 parameter set by **OID**, and every signing / verifying / VKO / KEG operation
 must first resolve that OID to the concrete constants. This package owns
-exactly that: the ten registered parameter-set tables, OID→curve resolution,
+exactly that: the twelve registered parameter-set tables, OID→curve resolution,
 and the short-Weierstrass affine point arithmetic (`Add`, `Double`,
 `ScalarMult`) that operations elsewhere in this module build on.
 
@@ -133,6 +133,20 @@ x = 0000000000000000000000000000000000000000000000000000000000000000
 y = 41ECE55743711A8C3CBF3783CD08C0EE4D4DC440D4641A8F366E550DFDB3BB67
 ```
 
+**CryptoPro 2001, 256-bit key-exchange (Xch) sets** — the 2001 key-exchange
+parameter sets are **identical curves** to two of the signing sets above
+([RFC 4357](rfc/rfc4357.txt) §11.4; the same GC256B/GC256D identity appears in
+RFC 9189, Table 9). `CurveByOID` builds them from the CryptoPro-A/C
+constructors and only overwrites `Name`:
+
+| OID | Name | identical to |
+|---|---|---|
+| `1.2.643.2.2.36.0` | CryptoPro-XchA | CryptoPro-**A** |
+| `1.2.643.2.2.36.1` | CryptoPro-XchB | CryptoPro-**C** |
+
+Both have `Cofactor = 1` and reuse the `p, a, b, q, x, y` of their
+CryptoPro-A / CryptoPro-C counterparts shown above.
+
 #### TC26 2012, 256-bit ([RFC 7836](rfc/rfc7836.txt) §5.2 / draft-deremin)
 
 | OID | Name | form | Cofactor |
@@ -245,11 +259,17 @@ standard.
    `CryptoPro-A/B/C` (`1.2.643.2.2.35.{1,2,3}`) and `tc26-256-{B,C,D}`
    (`1.2.643.7.1.2.1.1.{2,3,4}`) are the **same six integers**. `CurveByOID`
    builds the tc26-256-B/C/D cases from the CryptoPro-A/B/C constructors and
-   only overwrites `Name`. A caller must still be able to resolve *both* OID
-   arcs — certificates and TLS handshakes use whichever the issuer chose.
+   only overwrites `Name`. The same pattern covers the 2001 key-exchange
+   sets: `CryptoPro-XchA` (`1.2.643.2.2.36.0`) is identical to CryptoPro-A and
+   `CryptoPro-XchB` (`1.2.643.2.2.36.1`) to CryptoPro-C (RFC 4357 §11.4), and
+   is likewise built from the shared constructors with only `Name`
+   overwritten. A caller must still be able to resolve *all* OID arcs —
+   certificates and TLS handshakes use whichever the issuer chose.
 
-5. **Cofactor is explicit per set, not defaulted.** Each of the ten
-   constructors sets `Cofactor` directly (no "defaults to 1 if unset" logic).
+5. **Cofactor is explicit per set, not defaulted.** Each of the twelve
+   registered OID arcs sets `Cofactor` directly (no "defaults to 1 if unset"
+   logic; the Xch aliases inherit `Cofactor = 1` from the CryptoPro-A/C
+   constructors they are built from).
    `CryptoPro-C`/`tc26-256-D` is `1` — its stored `q` is the full group order
    (`#E = q`), so a cofactor of `4` is mathematically impossible (`4·q` would
    exceed the Hasse bound `p + 1 ± 2√p`). `tc26-256-A` and `tc26-512-C` are
@@ -280,7 +300,7 @@ standard.
 
 ## Test vectors
 
-### On-curve and order checks (all ten registered sets)
+### On-curve and order checks (all twelve registered sets)
 
 The cheapest and strongest correctness gate: for every OID, `IsOnCurve(Base())`
 must hold, and `ScalarMult(Q, Base())` must be the identity while

@@ -3,8 +3,8 @@
 `package gost3410curves` resolves a GOST R 34.10 named elliptic-curve
 parameter set by OID and implements the short-Weierstrass affine point
 arithmetic over it. GOST R 34.10-2001/2012 do not define a single curve — a
-certificate, key, or TLS handshake names one of ten registered parameter sets
-(`p, a, b, q, x, y`, plus a cofactor) by OID, and every sign/verify/VKO/KEG
+certificate, key, or TLS handshake names one of twelve registered parameter
+sets (`p, a, b, q, x, y`, plus a cofactor) by OID, and every sign/verify/VKO/KEG
 operation resolves that OID first. `gost3410sign`, `vko`, and `keg` all build
 on this package for their curve arithmetic.
 
@@ -17,7 +17,7 @@ Import path: `github.com/tarantool/go-gostcrypto/gost3410curves`
 | `type Curve struct{ P, A, B, Q, X, Y *big.Int; Name string; Cofactor int; ConstantTime bool }` | A registered parameter set: `y² = x³+a·x+b (mod P)`, base point `(X,Y)` of prime order `Q`. `Cofactor` is 1 or 4. `ConstantTime` selects the `ScalarMultSecret` backend (see below); zero value is `false`. |
 | `type Point struct{ X, Y *big.Int }` | An affine point; the identity is `(nil, nil)`. |
 | `(Point) IsInfinity() bool` | Reports whether `p` is the point at infinity. |
-| `CurveByOID(oid string) (*Curve, error)` | Resolves one of the ten registered dotted-decimal OID arcs (CryptoPro-A/B/C, tc26-256-A/B/C/D, tc26-512-A/B/C) to its parameter set. Unknown OID → error. |
+| `CurveByOID(oid string) (*Curve, error)` | Resolves one of the twelve registered dotted-decimal OID arcs (CryptoPro-A/B/C, CryptoPro-XchA/B, tc26-256-A/B/C/D, tc26-512-A/B/C) to its parameter set. Unknown OID → error. |
 | `(*Curve) PointSize() int` | Serialized coordinate size in bytes, derived from `P.BitLen()`: 32 for the 256-bit curves, 64 for the 512-bit ones. |
 | `(*Curve) Base() Point` | Returns the base point `G = (X, Y)`. |
 | `(*Curve) IsOnCurve(p Point) bool` | Reports whether `p` satisfies `y² ≡ x³+ax+b (mod P)`; the identity is always on-curve. |

@@ -22,7 +22,7 @@ Import path: `github.com/tarantool/go-gostcrypto/x509gost`
 | `OIDSignatureGOSTR341001`, `OIDSignatureGOSTR341012_256`, `OIDSignatureGOSTR341012_512` | Signature-algorithm (signwithdigest) OIDs. |
 | `OIDPublicKeyGOSTR341001`, `OIDPublicKeyGOSTR341012_256`, `OIDPublicKeyGOSTR341012_512` | Public-key algorithm OIDs. |
 | `OIDHashGOSTR341194`, `OIDHashStreebog256`, `OIDHashStreebog512` | Hash-algorithm OIDs. |
-| `OIDParamCryptoProA/B/C`, `OIDParamTC26_256A/B/C/D`, `OIDParamTC26_512A/B/C` | Curve parameter-set OIDs, for identifying the SPKI curve without going through `gost3410curves.CurveByOID`. |
+| `OIDParamCryptoProA/B/C`, `OIDParamCryptoProXchA/B`, `OIDParamTC26_256A/B/C/D`, `OIDParamTC26_512A/B/C` | Curve parameter-set OIDs, for identifying the SPKI curve without going through `gost3410curves.CurveByOID`. |
 
 `Certificate` field notes:
 

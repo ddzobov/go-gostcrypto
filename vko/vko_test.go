@@ -162,8 +162,9 @@ func derTLV(tag byte, content []byte) []byte {
 // (tmp/engine/gost_ameth.c:613-617 — "masked" form with zero masks →
 // BN_lebin2bn); the hex below was mechanically extracted from the PEM
 // fixtures. Curve mapping: XchA = CryptoPro-A and XchB = CryptoPro-C
-// (RFC 4357 §11.4); the *-rangetest rows reuse the cofactor-4 curves
-// (tc26 256-A, 512-C) with boundary scalars.
+// (RFC 4357 §11.4) — resolved via their own OIDs, 1.2.643.2.2.36.{0,1};
+// the *-rangetest rows reuse the cofactor-4 curves (tc26 256-A, 512-C)
+// with boundary scalars.
 //
 // The paramSetA-256 and paramSetC-512 rows also carry a "Malice" public key
 // lying in the small subgroup; the engine refuses to derive against it
@@ -241,7 +242,7 @@ func TestKAT_Engine04PkeyDerive(t *testing.T) {
 		},
 		{ // 04-pkey.t:202-211; XchA shares the CryptoPro-A curve (RFC 4357 §11.4).
 			name:       "id-GostR3410-2001-CryptoPro-XchA-ParamSet",
-			curve:      curve("1.2.643.2.2.35.1"),
+			curve:      curve("1.2.643.2.2.36.0"),
 			kek:        KEK2001,
 			alg:        "301c06062a8503020213301206072a85030202240006072a850302021e01",
 			alicePrv:   "9f73778adbf4c32abb81e700491df7e22bc143528d48dee258d0558e131d88c2",
@@ -252,7 +253,7 @@ func TestKAT_Engine04PkeyDerive(t *testing.T) {
 		},
 		{ // 04-pkey.t:212-221; XchB shares the CryptoPro-C curve (RFC 4357 §11.4).
 			name:       "id-GostR3410-2001-CryptoPro-XchB-ParamSet",
-			curve:      curve("1.2.643.2.2.35.3"),
+			curve:      curve("1.2.643.2.2.36.1"),
 			kek:        KEK2001,
 			alg:        "301c06062a8503020213301206072a85030202240106072a850302021e01",
 			alicePrv:   "8a92bf943f072d55b5393553ed7e03558c310db9436325e6190099895406ac62",

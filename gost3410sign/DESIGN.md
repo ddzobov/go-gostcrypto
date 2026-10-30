@@ -289,10 +289,10 @@ proving the implementation's `PointSize`-driven sizing extends correctly to
 
 The test suite additionally pins:
 
-- **Round-trip across all ten OID-resolvable curves** (3× CryptoPro-2001,
-  4× TC26-2012-256, 3× TC26-2012-512) with deterministic, curve-sized
-  private key / digest / nonce inputs — proving the curve-generic path and
-  the 32-vs-64-byte sizing switch.
+- **Round-trip across all twelve OID-resolvable curves** (5× CryptoPro-2001
+  incl. XchA/B, 4× TC26-2012-256, 3× TC26-2012-512) with deterministic,
+  curve-sized private key / digest / nonce inputs — proving the curve-generic
+  path and the 32-vs-64-byte sizing switch.
 - **Rejection paths**: malformed lengths (nil/short/long `sig`/`pubRaw`),
   out-of-range `r`/`s` at both ends (`0`, `q`, values above `q`), an
   off-curve public key, degenerate signing inputs (zero private key, zero

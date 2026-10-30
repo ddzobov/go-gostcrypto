@@ -8,7 +8,7 @@ import (
 	gost3410curves "github.com/tarantool/go-gostcrypto/gost3410curves"
 )
 
-// allOIDs lists the ten supported OID arcs and their expected PointSize.
+// allOIDs lists the twelve supported OID arcs and their expected PointSize.
 var allOIDs = []struct {
 	oid       string
 	name      string
@@ -17,6 +17,8 @@ var allOIDs = []struct {
 	{"1.2.643.2.2.35.1", "CryptoPro-A", 32},
 	{"1.2.643.2.2.35.2", "CryptoPro-B", 32},
 	{"1.2.643.2.2.35.3", "CryptoPro-C", 32},
+	{"1.2.643.2.2.36.0", "CryptoPro-XchA", 32},
+	{"1.2.643.2.2.36.1", "CryptoPro-XchB", 32},
 	{"1.2.643.7.1.2.1.1.1", "tc26-256-A", 32},
 	{"1.2.643.7.1.2.1.1.2", "tc26-256-B", 32},
 	{"1.2.643.7.1.2.1.1.3", "tc26-256-C", 32},
@@ -241,6 +243,8 @@ func TestCofactorField(t *testing.T) {
 		"1.2.643.2.2.35.1":    1, // CryptoPro-A.
 		"1.2.643.2.2.35.2":    1, // CryptoPro-B.
 		"1.2.643.2.2.35.3":    1, // CryptoPro-C (NOT 4 — see VKO-63 finding).
+		"1.2.643.2.2.36.0":    1, // CryptoPro-XchA == CryptoPro-A.
+		"1.2.643.2.2.36.1":    1, // CryptoPro-XchB == CryptoPro-C.
 		"1.2.643.7.1.2.1.1.1": 4, // tc26-256-A (twisted-Edwards, co=4).
 		"1.2.643.7.1.2.1.1.2": 1, // tc26-256-B == CryptoPro-A.
 		"1.2.643.7.1.2.1.1.3": 1, // tc26-256-C == CryptoPro-B.
@@ -422,7 +426,9 @@ func TestIdentityEdgePaths(t *testing.T) {
 	})
 }
 
-// aliasing: the 2001 CryptoPro 256-bit sets share constants with tc26-256-B/C/D.
+// aliasing: the 2001 CryptoPro 256-bit sets share constants with tc26-256-B/C/D,
+// and the 2001 CryptoPro Xch key-exchange sets share constants with
+// CryptoPro-A/C (RFC 4357 §11.4).
 func TestAliasing(t *testing.T) {
 	t.Parallel()
 
@@ -430,6 +436,8 @@ func TestAliasing(t *testing.T) {
 		{"1.2.643.2.2.35.1", "1.2.643.7.1.2.1.1.2"}, // CryptoPro-A == tc26-256-B.
 		{"1.2.643.2.2.35.2", "1.2.643.7.1.2.1.1.3"}, // CryptoPro-B == tc26-256-C.
 		{"1.2.643.2.2.35.3", "1.2.643.7.1.2.1.1.4"}, // CryptoPro-C == tc26-256-D.
+		{"1.2.643.2.2.36.0", "1.2.643.2.2.35.1"},     // CryptoPro-XchA == CryptoPro-A.
+		{"1.2.643.2.2.36.1", "1.2.643.2.2.35.3"},     // CryptoPro-XchB == CryptoPro-C.
 	}
 	for _, p := range pairs {
 		a := mustCurve(t, p[0])

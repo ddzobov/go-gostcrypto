@@ -29,6 +29,8 @@ func TestCurveFromOID_FullSupportedSet(t *testing.T) {
 		{"CryptoPro-A", x509gost.OIDParamCryptoProA, coord256},
 		{"CryptoPro-B", x509gost.OIDParamCryptoProB, coord256},
 		{"CryptoPro-C", x509gost.OIDParamCryptoProC, coord256},
+		{"CryptoPro-XchA", x509gost.OIDParamCryptoProXchA, coord256},
+		{"CryptoPro-XchB", x509gost.OIDParamCryptoProXchB, coord256},
 		{"TC26-256-A", x509gost.OIDParamTC26_256A, coord256},
 		{"TC26-256-B", x509gost.OIDParamTC26_256B, coord256},
 		{"TC26-256-C", x509gost.OIDParamTC26_256C, coord256},

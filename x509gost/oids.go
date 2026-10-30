@@ -62,6 +62,16 @@ var OIDParamCryptoProB = asn1.ObjectIdentifier{1, 2, 643, 2, 2, 35, 2}
 // (1.2.643.2.2.35.3). RFC 4357.
 var OIDParamCryptoProC = asn1.ObjectIdentifier{1, 2, 643, 2, 2, 35, 3}
 
+// OIDParamCryptoProXchA is the CryptoPro-XchA 2001 key-exchange curve
+// parameter set (id-GostR3410-2001-CryptoPro-XchA-ParamSet /
+// 1.2.643.2.2.36.0). RFC 4357 §11.4; identical curve to CryptoPro-A.
+var OIDParamCryptoProXchA = asn1.ObjectIdentifier{1, 2, 643, 2, 2, 36, 0}
+
+// OIDParamCryptoProXchB is the CryptoPro-XchB 2001 key-exchange curve
+// parameter set (id-GostR3410-2001-CryptoPro-XchB-ParamSet /
+// 1.2.643.2.2.36.1). RFC 4357 §11.4; identical curve to CryptoPro-C.
+var OIDParamCryptoProXchB = asn1.ObjectIdentifier{1, 2, 643, 2, 2, 36, 1}
+
 // OIDParamTC26_256A is the TC26 GOST R 34.10-2012 256-bit curve paramSetA
 // (id-tc26-gost-3410-2012-256-paramSetA / 1.2.643.7.1.2.1.1.1). RFC 7091.
 var OIDParamTC26_256A = asn1.ObjectIdentifier{1, 2, 643, 7, 1, 2, 1, 1, 1}

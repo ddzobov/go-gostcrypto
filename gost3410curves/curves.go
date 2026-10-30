@@ -8,7 +8,7 @@ import (
 )
 
 // errUnknownCurveOID is returned by CurveByOID for an OID arc that is not one
-// of the ten supported parameter sets.
+// of the twelve supported parameter sets.
 var errUnknownCurveOID = errors.New("gost3410curves: unknown curve OID")
 
 const (
@@ -247,10 +247,11 @@ func curveTc26512C() *Curve {
 	}
 }
 
-// CurveByOID resolves one of the ten supported OID arcs (dotted-decimal
+// CurveByOID resolves one of the twelve supported OID arcs (dotted-decimal
 // string) to its parameter set. The 2001 CryptoPro 256-bit sets are identical
-// curves to three of the tc26 2012 256-bit sets (§3.4), so those arcs share
-// constants but each returns a fresh *Curve.
+// curves to three of the tc26 2012 256-bit sets (§3.4), and the 2001 CryptoPro
+// Xch key-exchange sets are identical to CryptoPro-A/C (RFC 4357 §11.4), so
+// those arcs share constants but each returns a fresh *Curve.
 func CurveByOID(oid string) (*Curve, error) {
 	switch oid {
 	// CryptoPro 2001, 256-bit (1.2.643.2.2.35.x).
@@ -260,6 +261,20 @@ func CurveByOID(oid string) (*Curve, error) {
 		return curveCryptoProB(), nil
 	case "1.2.643.2.2.35.3":
 		return curveCryptoProC(), nil
+
+	// CryptoPro 2001, 256-bit key-exchange (1.2.643.2.2.36.x), RFC 4357 §11.4.
+	case "1.2.643.2.2.36.0": // XchA == CryptoPro-A (RFC 4357 §11.4).
+		c := curveCryptoProA()
+
+		c.Name = "id-GostR3410-2001-CryptoPro-XchA-ParamSet"
+
+		return c, nil
+	case "1.2.643.2.2.36.1": // XchB == CryptoPro-C (RFC 4357 §11.4).
+		c := curveCryptoProC()
+
+		c.Name = "id-GostR3410-2001-CryptoPro-XchB-ParamSet"
+
+		return c, nil
 
 	// TC26 2012, 256-bit (1.2.643.7.1.2.1.1.x).
 	case "1.2.643.7.1.2.1.1.1": // tc26-256-A.
